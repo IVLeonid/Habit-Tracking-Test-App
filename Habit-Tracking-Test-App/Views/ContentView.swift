@@ -9,11 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var habits = HabitManager()
+    @State private var showingSheet = false
+    
     var body: some View {
         NavigationStack {
+            
             List {
-                ForEach(habits.habits) { habit in
+                Text("some information")
+            }
+            .toolbar {
+                Button() {
+                    showingSheet.toggle()
+                } label: {
+                    Image(systemName: "plus")
                 }
+            }
+            .sheet(isPresented: $showingSheet) {
+                HabitAdd(habits: habits)
             }
         }
     }

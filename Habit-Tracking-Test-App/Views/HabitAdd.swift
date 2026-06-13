@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct HabitAdd: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var habitName = "Name of habit"
     @State private var habitDescription = "Description of habit"
     var habits: HabitManager
     
     var body: some View {
-        VStack {
+        Form {
             TextField("Name of habit", text: $habitName)
             TextField("Description of habit", text: $habitDescription)
+        }
+        Button("Save") {
+            dismiss()
         }
     }
 }
