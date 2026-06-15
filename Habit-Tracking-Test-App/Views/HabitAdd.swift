@@ -10,8 +10,8 @@ import SwiftUI
 struct HabitAdd: View {
     @Environment(\.dismiss) var dismiss
     
-    @State private var habitName = "Name of habit"
-    @State private var habitDescription = "Description of habit"
+    @State private var habitName = ""
+    @State private var habitDescription = ""
     var habits: HabitManager
     
     var body: some View {
@@ -20,6 +20,7 @@ struct HabitAdd: View {
             TextField("Description of habit", text: $habitDescription)
         }
         Button("Save") {
+            habits.habits.append(Habit(title: habitName, description: habitDescription, counter: 0))
             dismiss()
         }
     }

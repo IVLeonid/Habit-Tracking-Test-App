@@ -13,9 +13,15 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            
             List {
-                Text("some information")
+                ForEach(habits.habits) { habit in
+                    NavigationLink(destination: HabitInsideView(habit: habit)) {
+                        HabitView(localHabit: habit)
+                    }
+                }
+                .onDelete { indexSet in
+                    habits.habits.remove(atOffsets: indexSet)
+                }
             }
             .toolbar {
                 Button() {
