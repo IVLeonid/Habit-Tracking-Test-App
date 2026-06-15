@@ -15,9 +15,13 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(habits.habits) { habit in
+                    HabitView(localHabit: habit, habits: habits)
+                        .background(
                     NavigationLink(destination: HabitInsideView(habit: habit)) {
-                        HabitView(localHabit: habit)
+                        EmptyView()
                     }
+                        .opacity(0)
+                    )
                 }
                 .onDelete { indexSet in
                     habits.habits.remove(atOffsets: indexSet)
@@ -34,6 +38,7 @@ struct ContentView: View {
                 HabitAdd(habits: habits)
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 

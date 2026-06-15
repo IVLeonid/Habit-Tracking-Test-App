@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HabitView: View {
     var localHabit: Habit
+    var habits: HabitManager
     
     var body: some View {
         HStack() {
@@ -22,6 +23,24 @@ struct HabitView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
             }
+            Stepper {
+                Text("")
+            } onIncrement: {
+                if let index = habits.habits.firstIndex(of: localHabit) {
+                    var updatedHabit = localHabit
+                    updatedHabit.counter += 1
+                    habits.habits[index] = updatedHabit
+                }
+            } onDecrement: {
+                if let index = habits.habits.firstIndex(of: localHabit) {
+                    if localHabit.counter > 0 {
+                        var updatedHabit = localHabit
+                        updatedHabit.counter -= 1
+                        habits.habits[index] = updatedHabit
+                    }
+                }
+            }
+            .labelsHidden()
         }
     }
 }
@@ -29,5 +48,5 @@ struct HabitView: View {
 
 
 #Preview {
-    HabitView(localHabit: .init(title: "test", description: "test", counter: 1))
+    HabitView(localHabit: .init(title: "test", description: "test", counter: 1), habits: HabitManager())
 }
